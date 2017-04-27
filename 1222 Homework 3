@@ -1,0 +1,163 @@
+-- Number 1 Syntax --
+
+
+
+SELECT Cust_ID AS 'Customer ID', CONCAT(fname, ' ', lname) Name, birth_date AS 'Begin Date' 
+
+  FROM Individual 
+
+    UNION ALL 
+
+SELECT Cust_ID AS 'Customer ID', Name, incorp_date AS 'Begin Date' 
+
+  FROM business;
+
+
+
+-- Number 1 Answer --
+
+# Customer ID, Name, Begin Date
+
+'1', 'James Hadley', '1972-04-22'
+
+'2', 'Susan Tingley', '1968-08-15'
+
+'3', 'Frank Tucker', '1958-02-06'
+
+'4', 'John Hayward', '1966-12-22'
+
+'5', 'Charles Frasier', '1971-08-25'
+
+'6', 'John Spencer', '1962-09-14'
+
+'7', 'Margaret Young', '1947-03-19'
+
+'8', 'Louis Blake', '1977-07-01'
+
+'9', 'Richard Farley', '1968-06-16'
+
+'10', 'Chilton Engineering', '1995-05-01'
+
+'11', 'Northeast Cooling Inc.', '2001-01-01'
+
+'12', 'Superior Auto Body', '2002-06-30'
+
+'13', 'AAA Insurance Inc.', '1999-05-01'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- Number 3 Syntax --
+
+SELECT c.Cust_id, c.Fed_id, 
+
+  CASE
+
+    WHEN LENGTH(c.Fed_id) = 11 THEN 
+
+      (SELECT CONCAT(i.fname, ' ', i.lname)
+
+       FROM Individual i
+
+       WHERE i.Cust_id = c.Cust_id NOT NULL) 
+
+    WHEN LENGTH(c.Fed_id) = 10 THEN
+
+      (SELECT b.Name
+
+       FROM Business b
+
+       WHERE b.Cust_id = c.Cust_id)
+
+    ELSE NULL 
+
+  END Name
+
+  FROM Customer c;
+
+  
+
+  -- Number 3 Answer -- 
+
+  # Cust_id, Fed_id, Name
+
+'1', '111-11-1111', 'James Hadley'
+
+'2', '222-22-2222', 'Susan Tingley'
+
+'3', '333-33-3333', 'Frank Tucker'
+
+'4', '444-44-4444', 'John Hayward'
+
+'5', '555-55-5555', 'Charles Frasier'
+
+'6', '666-66-6666', 'John Spencer'
+
+'7', '777-77-7777', 'Margaret Young'
+
+'8', '888-88-8888', 'Louis Blake'
+
+'9', '999-99-9999', 'Richard Farley'
+
+'10', '04-1111111', 'Chilton Engineering'
+
+'11', '04-2222222', 'Northeast Cooling Inc.'
+
+'12', '04-3333333', 'Superior Auto Body'
+
+'13', '04-4444444', 'AAA Insurance Inc.'
+
+
+
+  -- Number 4 Syntax --
+
+  SELECT p.Name AS 'Product Type', AVG(a.Avail_balance) AS 'Avg. Avail. Balance' 
+
+  FROM Product p JOIN Account a 
+
+  ON a.Product_cd=p.product_cd 
+
+  GROUP BY p.name;
+
+  
+
+  -- Number 4 Answer --
+
+  # Product Type, Avg. Avail. Balance
+
+'business line of credit', '4672.774902'
+
+'certificate of deposit', '4875.000000'
+
+'checking account', '7300.800985'
+
+'money market account', '5681.713216'
+
+'savings account', '463.940002'
+
+'small business loan', '50000.000000'
